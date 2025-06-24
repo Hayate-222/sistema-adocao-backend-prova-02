@@ -1,10 +1,8 @@
 const db = require('../config/database');
 
-class userModel {
+class UserModel {
   static async findByEmail(email) {
-    const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [
-      email,
-    ]);
+    const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
     return rows[0];
   }
 
@@ -20,32 +18,31 @@ class userModel {
 
   static async addUser({ name, email, password, phone, role }) {
     const [result] = await db.query(
-      'INSERT INTO pets (name, email, password, phone, role ) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO users (name, email, password, phone, role) VALUES (?, ?, ?, ?, ?)',
       [name, email, password, phone, role]
     );
-    //criptografazer senha
-    return { id: result.insertId, name, email, password, phone, role };
+    // JWT?
+    return { id: result.insertId, name, email, phone, role };
   }
 
   static async updateUserInfo(id, { name, phone }) {
-    await db.query('UPDATE user SET name = ?, phone = ? WHERE id = ? ', [name,phone,]);
+    await db.query('UPDATE users SET name = ?, phone = ? WHERE id = ?', [name, phone, id]);
   }
 
   static async changeUserEmail(id, { email }) {
-    //implementar segurança
-    await db.query('UPDATE user SET email = ? WHERE id = ? ', [email]);
+    // auth
+    await db.query('UPDATE users SET email = ? WHERE id = ?', [email, id]);
   }
 
   static async changeUserPassword(id, { password }) {
-    //implementar segurança
-    await db.query('UPDATE user SET password = ? WHERE id = ? ', [password]);
+    // auth
+    await db.query('UPDATE users SET password = ? WHERE id = ?', [password, id]);
   }
 
   static async deleteUser(id) {
+    // auth
     await db.query('DELETE FROM users WHERE id = ?', [id]);
   }
-
-
 }
 
-export default userModel;
+export default UserModel;

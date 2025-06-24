@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/userModel');
+
+
 class userService {
   static async userIsAdopter(id) {
     const [rows] = await db.query('SELECT role FROM users WHERE id = ?', [id]);

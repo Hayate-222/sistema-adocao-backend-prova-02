@@ -1,6 +1,7 @@
 const db = require('../config/database');
 const petService = require('../services/petService');
-class petModel {
+
+class PetModel {
   static async showAll() {
     const [rows] = await db.query('SELECT * FROM pets');
     return rows;
@@ -39,20 +40,18 @@ class petModel {
     };
   }
 
-  static async updatePet(
-    id,
-    { name, age, species, size, status, description }
-  ) {
+  static async updatePet(id, { name, age, species, size, status, description }) {
     await db.query(
-      'UPDATE pets SET name = ?, age = ?, species = ?, size = ?, status = ?, description = ? WHERE id = ? ',
-      [name, age, species, size, status, description]
+      'UPDATE pets SET name = ?, age = ?, species = ?, size = ?, status = ?, description = ? WHERE id = ?',
+      [name, age, species, size, status, description, id]
     );
   }
 
   static async deletePet(id) {
-    if (petService.petIsAvailable(id)) {
+    if (await petService.petIsAvailable(id)) {
       await db.query('DELETE FROM pets WHERE id = ?', [id]);
     }
   }
 }
-export default petModel;
+
+export default PetModel;
