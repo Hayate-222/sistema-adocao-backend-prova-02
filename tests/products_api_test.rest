@@ -1,53 +1,80 @@
-@baseURL = http://localhost:3000
+@URL = http://localhost:3000
 
-### Testar listagem de produtos
-GET {{baseURL}}/products
+### Listar pets para adoção
+GET {{URL}}/pets/available 
 Accept: application/json
 
+### Listar todos usuarios
+GET {{URL}}/user/
+Accept: application/json
 
-### Criar produto válido
-POST {{baseURL}}/products
+### Ver dados de um usuario
+GET {{URL}}/users/:id
+Accept: application/json
+
+### Listar todos os pets
+GET {{URL}}/pets/
+Accept: application/json
+
+### Listar dados de um pet
+GET {{URL}}/pets/:id
+Accept: application/json
+
+### Listar dados de um pet
+GET {{URL}}/adoptions
+Accept: application/json
+
+### Cadastra um novo usuário (adopter ou admin)
+POST {{URL}}/users 
 Content-Type: application/json
 
 {
-"name": "Fone de Ouvido",
-"price": 199.90,
-"stock": 25
+
 }
 
-
-### Criar produto com preço inválido
-POST {{baseURL}}/products
+### Login
+POST {{URL}}/login
 Content-Type: application/json
 
 {
-"name": "Produto Inválido",
-"price": -10,
-"stock": 5
+
 }
 
-
-### Atualizar produto existente (ID 1)
-PUT {{baseURL}}/products/1
+### Cadastra novo pet 
+POST {{URL}}/pets
 Content-Type: application/json
 
 {
-"name": "Fone Bluetooth",
-"price": 249.90,
-"stock": 20
+
 }
 
-
-### Atualizar produto com estoque negativo
-PUT {{baseURL}}/products/1
+### Realiza a adoção de um pet
+POST {{URL}}/pets
 Content-Type: application/json
 
 {
-"name": "Fone Bluetooth",
-"price": 249.90,
-"stock": -3
+
 }
 
 
-### Excluir produto (ID 1)
-DELETE {{baseURL}}/products/1
+### Atualiza dados do usuário
+PUT {{URL}}/users/:id
+Content-Type: application/json
+
+{
+
+}
+
+### Atualiza os dados de um pet
+PUT {{URL}}/pets/:id 
+Content-Type: application/json
+
+{
+
+}
+
+### Remove um usuário 
+DELETE {{URL}}/user/:id
+
+### Remove um pet do sistema
+DELETE {{URL}}/pets/:id

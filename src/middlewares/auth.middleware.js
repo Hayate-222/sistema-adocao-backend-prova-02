@@ -36,4 +36,4 @@ function selfAuthorize(role) {
 }
 
 
-module.exports = { authenticateToken, authorizeRole };
+module.exports = { authenticateToken, authorizeRole, selfAuthorize };
