@@ -1,4 +1,2 @@
-class adoptionService{
-
-}
-export default adoptionService
+class adoptionService {}
+module.exports =  adoptionService;

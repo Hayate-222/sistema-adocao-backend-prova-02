@@ -3,5 +3,5 @@ const app = require('./src/app'); // Importa o app já configurado (rotas, middl
 const PORT = process.env.PORT || 3000;
 // Inicia o servidor Express para escutar na porta definida
 app.listen(PORT, () => {
-console.log(`Servidor rodando na porta ${PORT}`);
+      console.log(`Servidor rodando na porta ${PORT}`);
 });

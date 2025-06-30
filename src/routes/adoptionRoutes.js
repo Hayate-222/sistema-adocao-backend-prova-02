@@ -7,4 +7,5 @@ router.get('/', authenticateToken, authorizeRole('admin'), getAllAdoptions);
 
 router.post('/', authenticateToken, authorizeRole('adopter'), makeAdoption);
 
-export default router;
+module.exports = router;
+
