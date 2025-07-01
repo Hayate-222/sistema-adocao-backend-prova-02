@@ -3,7 +3,6 @@ USE pets_db;
 CREATE TABLE IF NOT EXISTS users (
 id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(45) NOT NULL,
-    nickname VARCHAR(45) NOT NULL,
     email VARCHAR(45) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,

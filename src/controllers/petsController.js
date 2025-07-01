@@ -48,15 +48,21 @@ const updatePet = async (req, res) => {
 const deletePet = async (req, res) => {
       try {
             const petId = parseInt(req.params.id);
-            const isAvailable = await petService.petIsAvailable(petId);
 
-            if (!isAvailable) {
-                  return res.status(403).json({ message: 'Pet não está disponível para exclusão' });
+            const hasAdoptions = await petService.petHasAdoptions(petId);
+            if (hasAdoptions) {
+                  return res.status(403).json({ message: 'Não é possível deletar um pet que já foi adotado.' });
             }
+
+            const isAvailable = await petService.petIsAvailable(petId);
+            if (!isAvailable) {
+                  return res.status(403).json({ message: 'Pets adotados não podem ser deletados.' });
+            }
+
             await PetModel.deletePet(petId);
             res.json({ message: 'Pet deletado com sucesso' });
       } catch (err) {
-            res.status(500).json({ error: 'Erro ao deletar pet' });
+            res.status(500).json({ error: 'Erro ao deletar pet', details: err.message });
       }
 };
 

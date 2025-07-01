@@ -27,6 +27,11 @@ const registerUser = async (req, res) => {
       } catch (err) {
             res.status(400).json({ error: err.message });
       }
+
+      if (err.code === 'ER_DUP_ENTRY') {
+            return res.status(400).json({ error: 'Email já cadastrado' });
+      }
+      res.status(400).json({ error: err.message });
 };
 
 const loginUser = async (req, res) => {
@@ -53,10 +58,14 @@ const updateUserData = async (req, res) => {
 const deleteUser = async (req, res) => {
       try {
             const userId = parseInt(req.params.id);
-            await UserModel.deleteUser(userId);
+            const result = await UserModel.deleteUser(userId);
+            if (result.affectedRows === 0) {
+                  return res.status(404).json({ message: 'Usuário não encontrado' });
+            }
             res.json({ message: 'Usuário deletado com sucesso' });
       } catch (err) {
-            res.status(500).json({ error: 'Erro ao deletar usuário' });
+            console.error('Error deleting user:', err);
+            res.status(500).json({ error: 'Erro ao deletar usuário', details: err.message });
       }
 };
 

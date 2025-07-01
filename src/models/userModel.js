@@ -7,16 +7,16 @@ class UserModel {
       }
 
       static async findById(id) {
-            const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
+            const [rows] = await db.query('SELECT id, name, nickname, email, role, phone FROM users WHERE id = ?', [id]);
             return rows[0];
       }
 
       static async showAll() {
-            const [rows] = await db.query('SELECT * FROM users');
+            const [rows] = await db.query('SELECT id, name, nickname, email, role, phone FROM users');
             return rows;
       }
 
-      static async createUser({ email, password, role }) {
+      static async createUser({ email, password, role = 'adopter' }) {
             const [result] = await db.query('INSERT INTO users (email, password, role) VALUES (?, ?, ?)', [email, password, role]);
             return result.insertId;
       }
@@ -41,18 +41,16 @@ class UserModel {
       }
 
       static async changeUserEmail(id, { email }) {
-            // auth
             await db.query('UPDATE users SET email = ? WHERE id = ?', [email, id]);
       }
 
       static async changeUserPassword(id, { password }) {
-            // auth
             await db.query('UPDATE users SET password = ? WHERE id = ?', [password, id]);
       }
 
       static async deleteUser(id) {
-            // auth
-            await db.query('DELETE FROM users WHERE id = ?', [id]);
+            const [result] = await db.query('DELETE FROM users WHERE id = ?', [id]);
+            return result;
       }
 }
 

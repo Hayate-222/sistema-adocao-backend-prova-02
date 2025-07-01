@@ -1,12 +1,15 @@
 const db = require('../config/database');
 
 class petService {
-      static async petIsAvailable(petId) {
-            const [[pet]] = await db.query('SELECT status FROM pets WHERE id = ?', [petId]);
-            if (!pet || pet.status !== 'available') return false;
+      static async petIsAvailable(id) {
+            const [rows] = await db.query('SELECT status FROM pets WHERE id = ?', [id]);
 
-            const [adoptions] = await db.query('SELECT 1 FROM adoptions WHERE pet_id = ?', [petId]);
-            return adoptions.length === 0;
+            return rows[0]?.status?.toLowerCase() === 'available';
+      }
+
+      static async petHasAdoptions(id) {
+            const [rows] = await db.query('SELECT id FROM adoptions WHERE pet_id = ?', [id]);
+            return rows.length > 0;
       }
 }
 

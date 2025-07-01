@@ -6,7 +6,7 @@ const db = require('../config/database');
 class userService {
       static async userIsAdopter(id) {
             const [rows] = await db.query('SELECT role FROM users WHERE id = ?', [id]);
-            return rows[0]?.role === 'adopter';
+            return rows[0]?.role?.toLowerCase() === 'adopter';
       }
 
       static async registerUser(user) {
@@ -28,7 +28,7 @@ class userService {
             const valid = await bcrypt.compare(password, user.password);
             if (!valid) throw new Error('Senha inválida');
 
-            const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id, role: user.role, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
             return { token };
       }

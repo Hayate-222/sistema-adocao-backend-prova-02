@@ -1,9 +1,11 @@
 @URL = http://localhost:3000
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzNTU5NzMsImV4cCI6MTc1MTM1OTU3M30.z42o8_w5pVkNWPp089tlb_fsmuJT0tQSrciWFjREjy8
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzOTg2NTMsImV4cCI6MTc1MTQwMjI1M30.MRHNSnbZPmEvKYEe06HrbPAHdOHkdb_81LWpWCUsb_g
 
-@TOKEN_ADOPTER = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImVtYWlsIjoiYWRvdGVyQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkb3B0ZXIiLCJpYXQiOjE3NTEzNTYyNTIsImV4cCI6MTc1MTM1OTg1Mn0.OHV0lbAP4FlBvpG9RW4JLayKI34qzxeZJ2EgizUNt4s
+@TOKEN_ADOPTER = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImVtYWlsIjoiYWRvdGVyQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkb3B0ZXIiLCJpYXQiOjE3NTEzOTkxNTIsImV4cCI6MTc1MTQwMjc1Mn0.s945dDJnmJSEuWMZkHfT8BlnkOnIcDuEUPdN2r8gZJQ
 
-### Registrar admin✅
+
+
+### Registrar admin
 POST {{URL}}/users
 Content-Type: application/json
 
@@ -14,7 +16,7 @@ Content-Type: application/json
 }
 
 
-### Login ✅
+### Login admin
 POST {{URL}}/users/login
 Content-Type: application/json
 
@@ -25,7 +27,7 @@ Content-Type: application/json
 
 
 
-### Registrar adopter✅
+### Registrar adopter
 POST {{URL}}/users
 Content-Type: application/json
 
@@ -36,7 +38,7 @@ Content-Type: application/json
 }
 
 
-### Login ✅
+### Login adopter
 POST {{URL}}/users/login
 Content-Type: application/json
 
@@ -46,38 +48,38 @@ Content-Type: application/json
 }
 
 
-### Listar pets para adoção ✅
+### Listar pets para adoção
 GET {{URL}}/pets 
 Accept: application/json
 Authorization: Bearer {{TOKEN}}
 
 
-### Listar todos usuarios ✅
+### Listar todos usuarios
 GET {{URL}}/users/
 Accept: application/json
 Authorization: Bearer {{TOKEN}}
 
-### Ver dados de um usuario ✅
-GET {{URL}}/users/1 
+### Ver dados de um usuario
+GET {{URL}}/users/23 
 Accept: application/json
-Authorization: Bearer {{TOKEN}}
+Authorization: Bearer {{TOKEN_ADOPTER}}
 
-### Listar todos os pets ✅
+### Listar todos os pets
 GET {{URL}}/pets/
 Accept: application/json
 
-### Listar dados de um pet ✅
-GET {{URL}}/pets/1
+### Listar dados de um pet
+GET {{URL}}/pets/2
 Accept: application/json
 Authorization: Bearer {{TOKEN}}
 
-### Listar todas adoções ✅
+### Listar todas adoções
 GET {{URL}}/adoptions
 Accept: application/json
 Authorization: Bearer {{TOKEN}}
 
 
-### Cadastra novo pet ✅
+### Cadastra novo pet
 POST {{URL}}/pets
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
@@ -91,19 +93,19 @@ Authorization: Bearer {{TOKEN}}
   "description": "Very energetic and friendly"
 }
 
-### Realiza a adoção de um pet ✅
+### Realiza a adoção de um pet
 POST {{URL}}/adoptions
 Content-Type: application/json
 Authorization: Bearer {{TOKEN_ADOPTER}}
 
 {
   "user_id": 23,
-  "pet_id": 11,
+  "pet_id": 5,
   "adoption_date": "2025-07-01"
 }
 
 
-### Atualiza dados do usuário ✅
+### Atualiza dados do usuário
 PUT {{URL}}/users/2
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
@@ -113,7 +115,7 @@ Authorization: Bearer {{TOKEN}}
   "phone": "11912345678"
 }
 
-### Atualiza os dados de um pet ✅
+### Atualiza os dados de um pet
 PUT {{URL}}/pets/1
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
@@ -127,12 +129,12 @@ Authorization: Bearer {{TOKEN}}
   "description": "Updated description"
 }
 
-### Remove um usuário  ✅
+### Remove um usuário
 DELETE {{URL}}/users/1
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
-### Remove um pet do sistema ✅
+### Remove um pet do sistema 
 DELETE {{URL}}/pets/1
 Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
