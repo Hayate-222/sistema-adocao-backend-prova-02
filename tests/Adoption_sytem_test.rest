@@ -1,5 +1,5 @@
 @URL = http://localhost:3000
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzOTg2NTMsImV4cCI6MTc1MTQwMjI1M30.MRHNSnbZPmEvKYEe06HrbPAHdOHkdb_81LWpWCUsb_g
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTE0MDY5MTcsImV4cCI6MTc1MTQxMDUxN30.wJd1vyCPtRJxKtjvFFn6EtOttWzCMvhABkfZUwDo3_M
 
 @TOKEN_ADOPTER = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImVtYWlsIjoiYWRvdGVyQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkb3B0ZXIiLCJpYXQiOjE3NTEzOTkxNTIsImV4cCI6MTc1MTQwMjc1Mn0.s945dDJnmJSEuWMZkHfT8BlnkOnIcDuEUPdN2r8gZJQ
 
@@ -60,9 +60,9 @@ Accept: application/json
 Authorization: Bearer {{TOKEN}}
 
 ### Ver dados de um usuario
-GET {{URL}}/users/23 
+GET {{URL}}/users/1 
 Accept: application/json
-Authorization: Bearer {{TOKEN_ADOPTER}}
+Authorization: Bearer {{TOKEN}}
 
 ### Listar todos os pets
 GET {{URL}}/pets/

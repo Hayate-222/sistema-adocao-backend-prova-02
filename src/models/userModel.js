@@ -12,7 +12,7 @@ class UserModel {
       }
 
       static async showAll() {
-            const [rows] = await db.query('SELECT id, name, nickname, email, role, phone FROM users');
+            const [rows] = await db.query('SELECT id, name, email, role, phone FROM users');
             return rows;
       }
 
