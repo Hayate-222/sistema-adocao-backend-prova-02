@@ -1,80 +1,138 @@
 @URL = http://localhost:3000
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NTEzNTU5NzMsImV4cCI6MTc1MTM1OTU3M30.z42o8_w5pVkNWPp089tlb_fsmuJT0tQSrciWFjREjy8
 
-### Listar pets para adoção
-GET {{URL}}/pets/available 
+@TOKEN_ADOPTER = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImVtYWlsIjoiYWRvdGVyQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkb3B0ZXIiLCJpYXQiOjE3NTEzNTYyNTIsImV4cCI6MTc1MTM1OTg1Mn0.OHV0lbAP4FlBvpG9RW4JLayKI34qzxeZJ2EgizUNt4s
+
+### Registrar admin✅
+POST {{URL}}/users
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "123456",
+  "role": "admin"
+}
+
+
+### Login ✅
+POST {{URL}}/users/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "123456"
+}
+
+
+
+### Registrar adopter✅
+POST {{URL}}/users
+Content-Type: application/json
+
+{
+  "email": "adoter@example.com",
+  "password": "senhasenha",
+  "role": "adopter"
+}
+
+
+### Login ✅
+POST {{URL}}/users/login
+Content-Type: application/json
+
+{
+  "email": "adoter@example.com",
+  "password": "senhasenha"
+}
+
+
+### Listar pets para adoção ✅
+GET {{URL}}/pets 
 Accept: application/json
+Authorization: Bearer {{TOKEN}}
 
-### Listar todos usuarios
-GET {{URL}}/user/
+
+### Listar todos usuarios ✅
+GET {{URL}}/users/
 Accept: application/json
+Authorization: Bearer {{TOKEN}}
 
-### Ver dados de um usuario
-GET {{URL}}/users/:id
+### Ver dados de um usuario ✅
+GET {{URL}}/users/1 
 Accept: application/json
+Authorization: Bearer {{TOKEN}}
 
-### Listar todos os pets
+### Listar todos os pets ✅
 GET {{URL}}/pets/
 Accept: application/json
 
-### Listar dados de um pet
-GET {{URL}}/pets/:id
+### Listar dados de um pet ✅
+GET {{URL}}/pets/1
 Accept: application/json
+Authorization: Bearer {{TOKEN}}
 
-### Listar dados de um pet
+### Listar todas adoções ✅
 GET {{URL}}/adoptions
 Accept: application/json
+Authorization: Bearer {{TOKEN}}
 
-### Cadastra um novo usuário (adopter ou admin)
-POST {{URL}}/users 
-Content-Type: application/json
 
-{
-
-}
-
-### Login
-POST {{URL}}/login
-Content-Type: application/json
-
-{
-
-}
-
-### Cadastra novo pet 
+### Cadastra novo pet ✅
 POST {{URL}}/pets
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
-
+  "name": "Bolt",
+  "age": 4,
+  "species": "Dog",
+  "size": "Large",
+  "status": "available",
+  "description": "Very energetic and friendly"
 }
 
-### Realiza a adoção de um pet
-POST {{URL}}/pets
+### Realiza a adoção de um pet ✅
+POST {{URL}}/adoptions
 Content-Type: application/json
+Authorization: Bearer {{TOKEN_ADOPTER}}
 
 {
-
+  "user_id": 23,
+  "pet_id": 11,
+  "adoption_date": "2025-07-01"
 }
 
 
-### Atualiza dados do usuário
-PUT {{URL}}/users/:id
+### Atualiza dados do usuário ✅
+PUT {{URL}}/users/2
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
-
+  "name": "Gabriel Hayate",
+  "phone": "11912345678"
 }
 
-### Atualiza os dados de um pet
-PUT {{URL}}/pets/:id 
+### Atualiza os dados de um pet ✅
+PUT {{URL}}/pets/1
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
-
+  "name": "Bolt Updated",
+  "age": 6,
+  "species": "Dog",
+  "size": "Medium",
+  "status": "available",
+  "description": "Updated description"
 }
 
-### Remove um usuário 
-DELETE {{URL}}/user/:id
+### Remove um usuário  ✅
+DELETE {{URL}}/users/1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
-### Remove um pet do sistema
-DELETE {{URL}}/pets/:id
+### Remove um pet do sistema ✅
+DELETE {{URL}}/pets/1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}

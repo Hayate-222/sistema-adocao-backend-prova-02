@@ -4,7 +4,7 @@ const { getAllPets, getPetData, addNewPet, updatePet, deletePet } = require('../
 
 const router = express.Router();
 
-router.get('/', authenticateToken, getAllPets);
+router.get('/', getAllPets);
 router.get('/:id', authenticateToken, getPetData);
 router.post('/', authenticateToken, authorizeRole('admin'), addNewPet);
 router.put('/:id', authenticateToken, authorizeRole('admin'), updatePet);

@@ -16,14 +16,28 @@ class UserModel {
             return rows;
       }
 
-      static async addUser({ name, email, password, phone, role }) {
-            const [result] = await db.query('INSERT INTO users (name, email, password, phone, role) VALUES (?, ?, ?, ?, ?)', [name, email, password, phone, role]);
-            // JWT?
-            return { id: result.insertId, name, email, phone, role };
+      static async createUser({ email, password, role }) {
+            const [result] = await db.query('INSERT INTO users (email, password, role) VALUES (?, ?, ?)', [email, password, role]);
+            return result.insertId;
       }
 
-      static async updateUserInfo(id, { name, phone }) {
-            await db.query('UPDATE users SET name = ?, phone = ? WHERE id = ?', [name, phone, id]);
+      static async updateUserInfo(id, userData) {
+            const fields = [];
+            const values = [];
+
+            for (const [key, value] of Object.entries(userData)) {
+                  if (value !== undefined) {
+                        fields.push(`${key} = ?`);
+                        values.push(value);
+                  }
+            }
+
+            if (fields.length === 0) return;
+
+            const query = `UPDATE users SET ${fields.join(', ')} WHERE id = ?`;
+            values.push(id);
+
+            await db.query(query, values);
       }
 
       static async changeUserEmail(id, { email }) {

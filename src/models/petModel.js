@@ -1,5 +1,4 @@
 const db = require('../config/database');
-const petService = require('../services/petService');
 
 class PetModel {
       static async showAll() {
@@ -22,14 +21,34 @@ class PetModel {
             return { id: result.insertId, name, age, species, size, status, description };
       }
 
-      static async updatePet(id, { name, age, species, size, status, description }) {
-            await db.query('UPDATE pets SET name = ?, age = ?, species = ?, size = ?, status = ?, description = ? WHERE id = ?', [name, age, species, size, status, description, id]);
+      static async updatePet(id, petData) {
+            const fields = [];
+            const values = [];
+
+            for (const [key, value] of Object.entries(petData)) {
+                  if (value !== undefined) {
+                        fields.push(`${key} = ?`);
+                        values.push(value);
+                  }
+            }
+
+            if (fields.length === 0) {
+                  return;
+            }
+
+            const query = `UPDATE pets SET ${fields.join(', ')} WHERE id = ?`;
+            values.push(id);
+
+            await db.query(query, values);
       }
 
       static async deletePet(id) {
-            if (await petService.petIsAvailable(id)) {
-                  await db.query('DELETE FROM pets WHERE id = ?', [id]);
-            }
+            await db.query('DELETE FROM pets WHERE id = ?', [id]);
+      }
+
+      static async getStatusById(id) {
+            const [rows] = await db.query('SELECT status FROM pets WHERE id = ?', [id]);
+            return rows[0]?.status || null;
       }
 }
 

@@ -1,2 +1,2 @@
 class adoptionService {}
-module.exports =  adoptionService;
+module.exports = adoptionService;

@@ -8,4 +8,3 @@ router.get('/', authenticateToken, authorizeRole('admin'), getAllAdoptions);
 router.post('/', authenticateToken, authorizeRole('adopter'), makeAdoption);
 
 module.exports = router;
-

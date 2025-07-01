@@ -1,4 +1,5 @@
 const UserModel = require('../models/userModel');
+const userService = require('../services/userService');
 
 const getAllUsers = async (req, res) => {
       try {
@@ -16,6 +17,24 @@ const findUserById = async (req, res) => {
             res.json(user);
       } catch (err) {
             res.status(500).json({ error: 'Erro ao buscar usuário' });
+      }
+};
+
+const registerUser = async (req, res) => {
+      try {
+            const result = await userService.registerUser(req.body);
+            res.status(201).json(result);
+      } catch (err) {
+            res.status(400).json({ error: err.message });
+      }
+};
+
+const loginUser = async (req, res) => {
+      try {
+            const result = await userService.loginUser(req.body);
+            res.json(result);
+      } catch (err) {
+            res.status(401).json({ error: err.message });
       }
 };
 
@@ -41,4 +60,4 @@ const deleteUser = async (req, res) => {
       }
 };
 
-module.exports = { getAllUsers, findUserById, updateUserData, deleteUser };
+module.exports = { getAllUsers, findUserById, updateUserData, deleteUser, registerUser, loginUser };

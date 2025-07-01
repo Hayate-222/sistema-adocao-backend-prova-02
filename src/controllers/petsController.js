@@ -1,4 +1,5 @@
 const PetModel = require('../models/petModel');
+const petService = require('../services/petService');
 
 const getAllPets = async (req, res) => {
       try {
@@ -31,10 +32,16 @@ const addNewPet = async (req, res) => {
 const updatePet = async (req, res) => {
       try {
             const petId = parseInt(req.params.id);
+            if (isNaN(petId)) {
+                  return res.status(400).json({ error: 'ID do pet inválido' });
+            }
+
+            console.log('Updating pet with ID:', petId, 'Data:', req.body);
             await PetModel.updatePet(petId, req.body);
             res.json({ message: 'Pet atualizado com sucesso' });
       } catch (err) {
-            res.status(500).json({ error: 'Erro ao atualizar pet' });
+            console.error('[ERROR updating pet]:', err);
+            res.status(500).json({ error: 'Erro ao atualizar pet', details: err.message });
       }
 };
 
@@ -46,7 +53,6 @@ const deletePet = async (req, res) => {
             if (!isAvailable) {
                   return res.status(403).json({ message: 'Pet não está disponível para exclusão' });
             }
-
             await PetModel.deletePet(petId);
             res.json({ message: 'Pet deletado com sucesso' });
       } catch (err) {
